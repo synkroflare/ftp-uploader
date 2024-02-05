@@ -54,10 +54,10 @@ app.post("/upload", upload.single("image"), (req, res) => {
 
 const options = {
   key: fs.readFileSync(
-    "../../../etc/letsencrypt/live/javelyn.link/privkey.pem"
+    "../../../etc/letsencrypt/live/alabarda.link/privkey.pem"
   ),
   cert: fs.readFileSync(
-    "../../../etc/letsencrypt/live/javelyn.link/fullchain.pem"
+    "../../../etc/letsencrypt/live/alabarda.link/fullchain.pem"
   ),
 };
 const server = https

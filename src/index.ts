@@ -1,7 +1,6 @@
+import * as ftp from "basic-ftp";
 import cors from "cors";
 import express from "express";
-import fs from "fs";
-import https from "https";
 import multer from "multer";
 import path from "path";
 const port = 8082;
@@ -39,12 +38,33 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Configurar rota para upload
-app.post("/upload", upload.single("image"), (req, res) => {
+app.post("/upload", upload.single("image"), async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ error: "Nenhum arquivo enviado." });
   }
 
-  console.log(req);
+  const client = new ftp.Client();
+  client.ftp.verbose = true;
+  try {
+    await client.access({
+      host: "ns1017.hostgator.com.br",
+      port: 21,
+      user: "alabar44",
+      password: "Uww6ydkk2012",
+      secure: true,
+    });
+    console.log(await client.list());
+    await client.uploadFrom(req.file.stream, "testing.png");
+    await client.downloadTo(
+      "https://storage.alabarda.com.br/clients/estilo-arte-design/images/public/customs",
+      "testing.png"
+    );
+  } catch (err) {
+    console.log(err);
+  }
+
+  console.log(req.body);
+  client.close();
 
   const filePath = path.join(__dirname, "uploads", req.file.filename);
   // Aqui você pode fazer algo com o arquivo, como mover para outra pasta ou armazenar o caminho no banco de dados
@@ -52,19 +72,21 @@ app.post("/upload", upload.single("image"), (req, res) => {
   res.json({ message: "Upload realizado com sucesso.", filePath: filePath });
 });
 
-const options = {
-  key: fs.readFileSync(
-    "../../../etc/letsencrypt/live/alabarda.link/privkey.pem"
-  ),
-  cert: fs.readFileSync(
-    "../../../etc/letsencrypt/live/alabarda.link/fullchain.pem"
-  ),
-};
-const server = https
-  .createServer(options, app)
-  .listen(port, () =>
-    console.log(
-      `ftp-uploader server online on port ${port} and using node version ` +
-        process.version
-    )
-  );
+// const options = {
+//   key: fs.readFileSync(
+//     "../../../etc/letsencrypt/live/alabarda.link/privkey.pem"
+//   ),
+//   cert: fs.readFileSync(
+//     "../../../etc/letsencrypt/live/alabarda.link/fullchain.pem"
+//   ),
+// };
+// const server = https
+//   .createServer(options, app)
+//   .listen(port, () =>
+//     console.log(
+//       `ftp-uploader server online on port ${port} and using node version ` +
+//         process.version
+//     )
+//   );
+
+app.listen(port, () => console.log("on"));

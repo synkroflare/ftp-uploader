@@ -16,7 +16,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://estiload.lojavirtualnuvem.com.br/",
+  "https://estiload.lojavirtualnuvem.com.br",
 ]; // Substitua pelos seus valores
 
 const corsOptions: cors.CorsOptions = {
@@ -72,9 +72,9 @@ app.post("/upload", async (req, res) => {
 });
 
 app.post("/finalize-order", async (req, res) => {
-  const { imageCode, clientId }: { imageCode: string; clientId: string } =
+  const { imageCode, clientEmail }: { imageCode: string; clientEmail: string } =
     req.body;
-  if (!imageCode || !clientId) res.send("Invalid parameters.");
+  if (!imageCode || !clientEmail) res.send("Invalid parameters.");
 
   const client = new ftp.Client();
   client.ftp.verbose = true;
@@ -93,13 +93,11 @@ app.post("/finalize-order", async (req, res) => {
 
     const splitImageCode = imageCode.split(".");
     const imageExtension = splitImageCode[splitImageCode.length - 1];
-
-    const lastDotIndex = imageCode.lastIndexOf(".");
-    const imageName = imageCode.substring(0, lastDotIndex);
+    const newImageName = clientEmail.split("@")[0];
 
     const newPath =
       "/storage.alabarda.com.br/clients/estilo-arte-design/images/public/customs/" +
-      imageName +
+      newImageName +
       "." +
       imageExtension;
 
@@ -114,7 +112,7 @@ app.post("/finalize-order", async (req, res) => {
   res.json({ message: "Upload realizado com sucesso." });
 });
 
-const options = {
+const httpOptions = {
   key: fs.readFileSync(
     "../../../etc/letsencrypt/live/alabarda.link/privkey.pem"
   ),
@@ -123,7 +121,7 @@ const options = {
   ),
 };
 const server = https
-  .createServer(options, app)
+  .createServer(httpOptions, app)
   .listen(port, () =>
     console.log(
       `ftp-uploader server online on port ${port} and using node version ` +

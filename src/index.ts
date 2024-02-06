@@ -100,11 +100,11 @@ app.post("/finalize-order", async (req, res) => {
 
     const splitImageCode = imageCode.split(".");
     const imageExtension = splitImageCode[splitImageCode.length - 1];
-    const newImageName = clientEmail;
+    const newImageName = clientEmail.split("@")[0];
 
     const newPath =
       "/storage.alabarda.com.br/clients/estilo-arte-design/images/public_html/customs/" +
-      clientEmail;
+      newImageName;
 
     await client.rename(oldPath, newPath);
 

@@ -1,8 +1,10 @@
 import * as ftp from "basic-ftp";
 import cors from "cors";
 import express from "express";
+import fs from "fs";
+import https from "https";
 import multer from "multer";
-import path from "path";
+import { bufferToStream } from "./helpers/BufferToStream";
 const port = 8082;
 
 process.on("uncaughtException", (err) => {
@@ -25,68 +27,105 @@ app.use(multer().single("file"));
 app.use(express.json({ limit: "25mb" }));
 app.use(express.urlencoded({ limit: "25mb", extended: true }));
 
-// Configurar o multer para o upload de arquivos
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/"); // A pasta 'uploads' deve existir no mesmo diretório do app.js
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({ storage });
-
 // Configurar rota para upload
-app.post("/upload", upload.single("image"), async (req, res) => {
+app.post("/upload", async (req, res) => {
+  console.log("h");
   if (!req.file) {
     return res.status(400).json({ error: "Nenhum arquivo enviado." });
   }
+  console.log(req.body);
 
   const client = new ftp.Client();
   client.ftp.verbose = true;
   try {
-    await client.access({
+    const ftpRes = await client.access({
       host: "ns1017.hostgator.com.br",
       port: 21,
       user: "alabar44",
       password: "Uww6ydkk2012",
       secure: true,
     });
-    console.log(await client.list());
-    await client.uploadFrom(req.file.stream, "testing.png");
-    await client.downloadTo(
-      "https://storage.alabarda.com.br/clients/estilo-arte-design/images/public/customs",
-      "testing.png"
-    );
+
+    const list = await client.list();
+
+    console.log(ftpRes.code, ftpRes.message);
+
+    const remotePath =
+      "/storage.alabarda.com.br/clients/estilo-arte-design/images/public/customs/" +
+      req.file.originalname;
+
+    const fileStream = bufferToStream(req.file.buffer);
+
+    console.log({ fileStream, remotePath: remotePath });
+    await client.uploadFrom(fileStream, remotePath);
+
+    client.close();
   } catch (err) {
     console.log(err);
   }
 
-  console.log(req.body);
   client.close();
-
-  const filePath = path.join(__dirname, "uploads", req.file.filename);
-  // Aqui você pode fazer algo com o arquivo, como mover para outra pasta ou armazenar o caminho no banco de dados
-
-  res.json({ message: "Upload realizado com sucesso.", filePath: filePath });
+  res.json({ message: "Upload realizado com sucesso." });
 });
 
-// const options = {
-//   key: fs.readFileSync(
-//     "../../../etc/letsencrypt/live/alabarda.link/privkey.pem"
-//   ),
-//   cert: fs.readFileSync(
-//     "../../../etc/letsencrypt/live/alabarda.link/fullchain.pem"
-//   ),
-// };
-// const server = https
-//   .createServer(options, app)
-//   .listen(port, () =>
-//     console.log(
-//       `ftp-uploader server online on port ${port} and using node version ` +
-//         process.version
-//     )
-//   );
+app.post("/finalize-order", async (req, res) => {
+  const { imageCode, clientId }: { imageCode: string; clientId: string } =
+    req.body;
+  if (!imageCode || !clientId) res.send("Invalid parameters.");
 
-app.listen(port, () => console.log("on"));
+  const client = new ftp.Client();
+  client.ftp.verbose = true;
+  try {
+    const ftpRes = await client.access({
+      host: "ns1017.hostgator.com.br",
+      port: 21,
+      user: "alabar44",
+      password: "Uww6ydkk2012",
+      secure: true,
+    });
+
+    const oldPath =
+      "/storage.alabarda.com.br/clients/estilo-arte-design/images/public/customs/" +
+      imageCode;
+
+    const splitImageCode = imageCode.split(".");
+    const imageExtension = splitImageCode[splitImageCode.length - 1];
+
+    const lastDotIndex = imageCode.lastIndexOf(".");
+    const imageName = imageCode.substring(0, lastDotIndex);
+
+    const newPath =
+      "/storage.alabarda.com.br/clients/estilo-arte-design/images/public/customs/" +
+      imageName +
+      "." +
+      imageExtension;
+
+    await client.rename(oldPath, newPath);
+
+    client.close();
+  } catch (err) {
+    console.log(err);
+  }
+
+  client.close();
+  res.json({ message: "Upload realizado com sucesso." });
+});
+
+const options = {
+  key: fs.readFileSync(
+    "../../../etc/letsencrypt/live/alabarda.link/privkey.pem"
+  ),
+  cert: fs.readFileSync(
+    "../../../etc/letsencrypt/live/alabarda.link/fullchain.pem"
+  ),
+};
+const server = https
+  .createServer(options, app)
+  .listen(port, () =>
+    console.log(
+      `ftp-uploader server online on port ${port} and using node version ` +
+        process.version
+    )
+  );
+
+// app.listen(port, () => console.log("http on port 8082"));

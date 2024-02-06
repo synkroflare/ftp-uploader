@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form enctype="multipart/form-data">
+      <input type="file" id="imageInput" name="image" accept="image/*" />
+      <button type="button" onclick="uploadImage()">Upload</button>
+    </form>
+  </body>
+
+  <script>
+    function openVideoModal() {
+      const jsonString = "{{ category | json_encode}}";
+      console.log(JSON.parse(jsonString));
+      const modal = document.getElementById("product-video-modal");
+      const video = document.getElementById("product-video");
+      video.src =
+        "//storage.alabarda.com.br/clients/estilo-arte-design/videos/canvas-personalizado.mp4";
+      modal.classList.remove("!hidden");
+    }
+
+    function closeVideoModal(e) {
+      if (e.target.id !== "product-video-modal") return;
+      const modal = document.getElementById("product-video-modal");
+      const video = document.getElementById("product-video");
+      video.pause();
+      modal.classList.add("!hidden");
+    }
+
+    function setQuanty(quantity, referencer) {
+      const input = document.querySelector(".js-quantity-input");
+      if (!input) return;
+      input.value = quantity;
+    }
+
+    function uploadImage() {
+      const fileInput = document.getElementById("imageInput");
+      const file = fileInput.files[0];
+
+      if (file) {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append(
+          "data",
+          JSON.stringify({
+            test: 123,
+          })
+        );
+
+        fetch("http://localhost:8082/upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data); // Lidar com a resposta do servidor
+          })
+          .catch((error) => {
+            console.error("Erro no upload:", error);
+          });
+      } else {
+        console.error("Nenhuma imagem selecionada.");
+      }
+    }
+  </script>
+</html>

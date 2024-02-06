@@ -14,7 +14,10 @@ process.on("uncaughtException", (err) => {
 
 const app = express();
 
-const allowedOrigins = ["http://localhost:3000", "https://javelyn.vercel.app"]; // Substitua pelos seus valores
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://estiload.lojavirtualnuvem.com.br/",
+]; // Substitua pelos seus valores
 
 const corsOptions: cors.CorsOptions = {
   origin: allowedOrigins,

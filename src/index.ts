@@ -76,7 +76,11 @@ app.post("/upload", async (req, res) => {
 app.post("/finalize-order", async (req, res) => {
   const { imageCode, clientEmail }: { imageCode: string; clientEmail: string } =
     req.body;
-  if (!imageCode || !clientEmail) res.send("Invalid parameters.");
+  if (!imageCode || !clientEmail)
+    res.send({
+      msg: "Invalid parameters.",
+      body: req.body,
+    });
 
   const client = new ftp.Client();
   client.ftp.verbose = true;

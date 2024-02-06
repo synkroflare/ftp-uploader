@@ -56,7 +56,7 @@ app.post("/upload", async (req, res) => {
     console.log(ftpRes.code, ftpRes.message);
 
     const remotePath =
-      "/storage.alabarda.com.br/clients/estilo-arte-design/images/public/customs/" +
+      "/storage.alabarda.com.br/clients/estilo-arte-design/images/public_html/customs/" +
       req.file.originalname;
 
     const fileStream = bufferToStream(req.file.buffer);
@@ -95,18 +95,16 @@ app.post("/finalize-order", async (req, res) => {
     });
 
     const oldPath =
-      "/storage.alabarda.com.br/clients/estilo-arte-design/images/public/customs/" +
+      "/storage.alabarda.com.br/clients/estilo-arte-design/images/public_html/customs/" +
       imageCode;
 
     const splitImageCode = imageCode.split(".");
     const imageExtension = splitImageCode[splitImageCode.length - 1];
-    const newImageName = clientEmail.split("@")[0];
+    const newImageName = clientEmail;
 
     const newPath =
-      "/storage.alabarda.com.br/clients/estilo-arte-design/images/public/customs/" +
-      newImageName +
-      "." +
-      imageExtension;
+      "/storage.alabarda.com.br/clients/estilo-arte-design/images/public_html/customs/" +
+      clientEmail;
 
     await client.rename(oldPath, newPath);
 

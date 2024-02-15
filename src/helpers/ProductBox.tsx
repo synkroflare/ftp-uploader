@@ -30,14 +30,14 @@ export const ProductBox = (product: Product) => {
             >
               <a
                 class=""
-                href="https://estiload.lojavirtualnuvem.com.br/produtos/quadro-decorativo-canvas-paisagem-lago-na-floresta-black-and-white-horizontal/"
-                title={product.name.pt}
-                aria-label={product.name.pt}
+                href="${product.canonical_url}"
+                title="${product.name.pt}"
+                aria-label="${product.name.pt}"
               >
                 <img
-                  alt={product.name.pt}
+                  alt="${product.name.pt}"
                   data-expand="-10"
-                  src="//dcdn.mitiendanube.com/stores/003/499/567/products/5cc9df4faa-750b7c8b4877ec65db17072694749851-1024-1024.jpg"
+                  src="${product.images[0].src}"
                   // data-srcset="//dcdn.mitiendanube.com/stores/003/499/567/products/2733_1-qagi7vsf4s-bde1f4d90e31b11c8017071991592140-240-0.webp 240w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_1-qagi7vsf4s-bde1f4d90e31b11c8017071991592140-320-0.webp 320w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_1-qagi7vsf4s-bde1f4d90e31b11c8017071991592140-480-0.webp 480w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_1-qagi7vsf4s-bde1f4d90e31b11c8017071991592140-640-0.webp 640w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_1-qagi7vsf4s-bde1f4d90e31b11c8017071991592140-1024-1024.webp 1024w"
                   class="!h-[200px] lg:!h-[300px] js-item-image lazyautosizes img-absolute img-absolute-centered fade-in item-image-primary lazyloaded"
                   width="800"
@@ -54,9 +54,9 @@ export const ProductBox = (product: Product) => {
                   ></span>{" "}
                 </div>
                 <img
-                  alt={product.name.pt}
+                  alt="${product.name.pt}"
                   data-sizes="auto"
-                  src="//dcdn.mitiendanube.com/assets/themes/toluca/static/images/empty-placeholder.png"
+                  src="${product.images[1].src}"
                   // data-srcset="//dcdn.mitiendanube.com/stores/003/499/567/products/2733_2-0kh604nvr3-30955fcaee59c0e40917071991650069-240-0.webp 240w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_2-0kh604nvr3-30955fcaee59c0e40917071991650069-320-0.webp 320w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_2-0kh604nvr3-30955fcaee59c0e40917071991650069-480-0.webp 480w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_2-0kh604nvr3-30955fcaee59c0e40917071991650069-640-0.webp 640w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_2-0kh604nvr3-30955fcaee59c0e40917071991650069-1024-1024.webp 1024w"
                   class="!h-[200px] lg:!h-[300px] js-item-image js-item-image-secondary lazyautosizes img-absolute img-absolute-centered fade-in item-image-secondary lazyloaded"
                   sizes="300px"
@@ -84,9 +84,9 @@ export const ProductBox = (product: Product) => {
             data-store="product-item-info-200065459"
           >
             <a
-              href="https://estiload.lojavirtualnuvem.com.br/produtos/quadro-decorativo-canvas-paisagem-lago-na-floresta-black-and-white-horizontal/"
-              title={product.name.pt}
-              aria-label={product.name.pt}
+              href="${product.canonical_url}"
+              title="${product.name.pt}"
+              aria-label="${product.name.pt}"
               class="item-link"
             >
               <div
@@ -143,8 +143,8 @@ export const ProductBox = (product: Product) => {
                   <a                 
                     href="${product.canonical_url}"
                     class=" btn btn-primary btn-small w-100"
-                    title="Compra rápida de Quadro Decorativo Canvas Paisagem Lago na Floresta Black and White Horizontal"
-                    aria-label="Compra rápida de Quadro Decorativo Canvas Paisagem Lago na Floresta Black and White Horizontal"
+                    title="$"${product.name.pt}""
+                    aria-label="$"${product.name.pt}""
                     data-component-value={product.id}
                   >
                     <span class="js-open-quickshop-wording">Comprar</span>
@@ -167,9 +167,9 @@ export const ProductBox = (product: Product) => {
         "@type": "Product",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https://estiload.lojavirtualnuvem.com.br/produtos/quadro-decorativo-canvas-paisagem-lago-na-floresta-black-and-white-horizontal/"
+            "@id": "${product.canonical_url}"
         },
-        "name": {product.name.pt},
+        "name": "${product.name.pt}",
         "image": "https://dcdn.mitiendanube.com/stores/003/499/567/products/2733_1-qagi7vsf4s-bde1f4d90e31b11c8017071991592140-480-0.webp",
         "description": "ESTILO ARTE DESIGN Quadros decorativos para qualquer ambiente: Disponíveis em diversos modelos e composições de forma a atender todos os gostos! PERFEIÇÃO DA...",
                     "sku": "CAN_2733_60x40",
@@ -184,7 +184,7 @@ export const ProductBox = (product: Product) => {
             },
                 "offers": {
             "@type": "Offer",
-            "url": "https://estiload.lojavirtualnuvem.com.br/produtos/quadro-decorativo-canvas-paisagem-lago-na-floresta-black-and-white-horizontal/",
+            "url": "${product.canonical_url}",
             "priceCurrency": "BRL",
             "price": "79",
                         "seller": {

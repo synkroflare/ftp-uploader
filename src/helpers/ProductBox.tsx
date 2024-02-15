@@ -38,12 +38,10 @@ export const ProductBox = (product: Product) => {
                   alt="${product.name.pt}"
                   data-expand="-10"
                   src="${product.images[0].src}"
-                  // data-srcset="//dcdn.mitiendanube.com/stores/003/499/567/products/2733_1-qagi7vsf4s-bde1f4d90e31b11c8017071991592140-240-0.webp 240w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_1-qagi7vsf4s-bde1f4d90e31b11c8017071991592140-320-0.webp 320w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_1-qagi7vsf4s-bde1f4d90e31b11c8017071991592140-480-0.webp 480w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_1-qagi7vsf4s-bde1f4d90e31b11c8017071991592140-640-0.webp 640w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_1-qagi7vsf4s-bde1f4d90e31b11c8017071991592140-1024-1024.webp 1024w"
                   class="!h-[200px] lg:!h-[300px] js-item-image lazyautosizes img-absolute img-absolute-centered fade-in item-image-primary lazyloaded"
                   width="800"
                   height="800"
                   sizes="300px"
-                  // srcset="//dcdn.mitiendanube.com/stores/003/499/567/products/2733_1-qagi7vsf4s-bde1f4d90e31b11c8017071991592140-240-0.webp 240w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_1-qagi7vsf4s-bde1f4d90e31b11c8017071991592140-320-0.webp 320w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_1-qagi7vsf4s-bde1f4d90e31b11c8017071991592140-480-0.webp 480w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_1-qagi7vsf4s-bde1f4d90e31b11c8017071991592140-640-0.webp 640w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_1-qagi7vsf4s-bde1f4d90e31b11c8017071991592140-1024-1024.webp 1024w"
                 />
                 <div class="placeholder-fade"></div>
                 <div class="!hidden absolute z-10 top-0 left-0 !p-[7px] flex items-center justify-center !text-white font-bold !bg-[#d97e7e]">
@@ -93,8 +91,7 @@ export const ProductBox = (product: Product) => {
                 class="js-item-name item-name text-center mt-1 mb-3 font-small "
                 data-store="product-item-name-200065459"
               >
-                Quadro Decorativo Canvas Paisagem Lago na Floresta Black and
-                White Horizontal
+                ${product.name.pt}
               </div>
 
               <div

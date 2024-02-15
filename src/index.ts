@@ -1,3 +1,4 @@
+import axios from "axios";
 import * as ftp from "basic-ftp";
 import cors from "cors";
 import express from "express";
@@ -5,6 +6,7 @@ import fs from "fs";
 import https from "https";
 import multer from "multer";
 import { bufferToStream } from "./helpers/BufferToStream";
+import { ProductBox } from "./helpers/ProductBox";
 const port = 8082;
 
 process.on("uncaughtException", (err) => {
@@ -115,6 +117,27 @@ app.post("/finalize-order", async (req, res) => {
 
   client.close();
   res.json({ message: "Upload realizado com sucesso." });
+});
+
+app.get("/product", async (req, res) => {
+  const { sku } = req.query as { sku: string | undefined };
+
+  const productResponse = await axios.get(
+    `https://api.nuvemshop.com.br/v1/3499567/products?q=${sku}`,
+    {
+      headers: {
+        Authentication: "bearer f6373d49fad6f9d17e77c757d82111f8843a0f7b",
+      },
+    }
+  );
+
+  if (!productResponse || !productResponse.data) return;
+  const products = await productResponse.data;
+  const product = products[0];
+
+  const productHTML = ProductBox(product);
+
+  res.json({ productHTML });
 });
 
 const httpOptions = {

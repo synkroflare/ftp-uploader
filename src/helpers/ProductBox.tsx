@@ -12,6 +12,8 @@ export const ProductBox = (product: Product) => {
       data-transition="fade-in-up"
       style="
     box-shadow: 0 0px 49px 3px #d97e7e;
+    max-width: 100%;
+    width: 100%;
 "
     >
       <div class="item">

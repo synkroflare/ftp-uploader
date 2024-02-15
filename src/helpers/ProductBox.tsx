@@ -124,7 +124,7 @@ export const ProductBox = (product: Product) => {
 
                     <span class="js-installment-price product-installment-value">
                       R$
-                      {(Number(product.variants[0].price) / 6)
+                      ${(Number(product.variants[0].price) / 6)
                         .toFixed(2)
                         .replace(".", ",")}
                     </span>
@@ -142,10 +142,9 @@ export const ProductBox = (product: Product) => {
                 <div class="item-actions w-full">
                   <a                 
                     href="${product.canonical_url}"
-                    class="js-quickshop-modal-open js-fullscreen-modal-open  js-modal-open btn btn-primary btn-small w-100"
+                    class=" btn btn-primary btn-small w-100"
                     title="Compra rápida de Quadro Decorativo Canvas Paisagem Lago na Floresta Black and White Horizontal"
                     aria-label="Compra rápida de Quadro Decorativo Canvas Paisagem Lago na Floresta Black and White Horizontal"
-                    data-component="product-list-item.add-to-cart"
                     data-component-value={product.id}
                   >
                     <span class="js-open-quickshop-wording">Comprar</span>

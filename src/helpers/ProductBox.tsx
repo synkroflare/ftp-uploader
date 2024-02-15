@@ -55,11 +55,9 @@ export const ProductBox = (product: Product) => {
                   alt="${product.name.pt}"
                   data-sizes="auto"
                   src="${product.images[1].src}"
-                  // data-srcset="//dcdn.mitiendanube.com/stores/003/499/567/products/2733_2-0kh604nvr3-30955fcaee59c0e40917071991650069-240-0.webp 240w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_2-0kh604nvr3-30955fcaee59c0e40917071991650069-320-0.webp 320w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_2-0kh604nvr3-30955fcaee59c0e40917071991650069-480-0.webp 480w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_2-0kh604nvr3-30955fcaee59c0e40917071991650069-640-0.webp 640w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_2-0kh604nvr3-30955fcaee59c0e40917071991650069-1024-1024.webp 1024w"
                   class="!h-[200px] lg:!h-[300px] js-item-image js-item-image-secondary lazyautosizes img-absolute img-absolute-centered fade-in item-image-secondary lazyloaded"
                   sizes="300px"
                   style=""
-                  // srcset="//dcdn.mitiendanube.com/stores/003/499/567/products/2733_2-0kh604nvr3-30955fcaee59c0e40917071991650069-240-0.webp 240w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_2-0kh604nvr3-30955fcaee59c0e40917071991650069-320-0.webp 320w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_2-0kh604nvr3-30955fcaee59c0e40917071991650069-480-0.webp 480w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_2-0kh604nvr3-30955fcaee59c0e40917071991650069-640-0.webp 640w, //dcdn.mitiendanube.com/stores/003/499/567/products/2733_2-0kh604nvr3-30955fcaee59c0e40917071991650069-1024-1024.webp 1024w"
                 />
               </a>
             </div>

@@ -2,8 +2,6 @@ import axios from "axios";
 import * as ftp from "basic-ftp";
 import cors from "cors";
 import express from "express";
-import fs from "fs";
-import https from "https";
 import multer from "multer";
 import { bufferToStream } from "./helpers/BufferToStream";
 import { LiProductBox } from "./helpers/LiProductBox";
@@ -145,13 +143,7 @@ app.get("/product-li", async (req, res) => {
   const { sku } = req.query as { sku: string | undefined };
 
   const productIdResponse = await axios.get(
-    `https://api.awsli.com.br/v1/produto/?sku=${sku}`,
-    {
-      headers: {
-        chave_api: "aaba145ba78dc7524820",
-        chave_aplicacao: "92fae45b-dd41-46c2-ac0d-840642d6982a",
-      },
-    }
+    `https://api.awsli.com.br/v1/produto/?sku=${sku}&chave_api=aaba145ba78dc7524820&chave_aplicacao=92fae45b-dd41-46c2-ac0d-840642d6982a`
   );
 
   if (
@@ -163,13 +155,7 @@ app.get("/product-li", async (req, res) => {
     return;
 
   const productResponse = await axios.get(
-    `https://api.awsli.com.br/v1/produto/${productIdResponse.data.objects[0]?.id}`,
-    {
-      headers: {
-        chave_api: "aaba145ba78dc7524820",
-        chave_aplicacao: "92fae45b-dd41-46c2-ac0d-840642d6982a",
-      },
-    }
+    `https://api.awsli.com.br/v1/produto/${productIdResponse.data.objects[0]?.id}?chave_api=aaba145ba78dc7524820&chave_aplicacao=92fae45b-dd41-46c2-ac0d-840642d6982a`
   );
 
   const product = await productResponse.data;
@@ -178,21 +164,21 @@ app.get("/product-li", async (req, res) => {
   res.json({ productHTML });
 });
 
-const httpOptions = {
-  key: fs.readFileSync(
-    "../../../etc/letsencrypt/live/alabarda.link/privkey.pem"
-  ),
-  cert: fs.readFileSync(
-    "../../../etc/letsencrypt/live/alabarda.link/fullchain.pem"
-  ),
-};
-const server = https
-  .createServer(httpOptions, app)
-  .listen(port, () =>
-    console.log(
-      `ftp-uploader server online on port ${port} and using node version ` +
-        process.version
-    )
-  );
+// const httpOptions = {
+//   key: fs.readFileSync(
+//     "../../../etc/letsencrypt/live/alabarda.link/privkey.pem"
+//   ),
+//   cert: fs.readFileSync(
+//     "../../../etc/letsencrypt/live/alabarda.link/fullchain.pem"
+//   ),
+// };
+// const server = https
+//   .createServer(httpOptions, app)
+//   .listen(port, () =>
+//     console.log(
+//       `ftp-uploader server online on port ${port} and using node version ` +
+//         process.version
+//     )
+//   );
 
-// app.listen(port, () => console.log("http on port 8082"));
+app.listen(port, () => console.log("http on port 8082"));

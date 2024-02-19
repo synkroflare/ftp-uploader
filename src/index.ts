@@ -6,6 +6,7 @@ import fs from "fs";
 import https from "https";
 import multer from "multer";
 import { bufferToStream } from "./helpers/BufferToStream";
+import { LiProductBox } from "./helpers/LiProductBox";
 import { ProductBox } from "./helpers/ProductBox";
 const port = 8082;
 
@@ -136,6 +137,43 @@ app.get("/product", async (req, res) => {
   const product = products[0];
 
   const productHTML = ProductBox(product);
+
+  res.json({ productHTML });
+});
+
+app.get("/product-li", async (req, res) => {
+  const { sku } = req.query as { sku: string | undefined };
+
+  const productIdResponse = await axios.get(
+    `https://api.awsli.com.br/v1/produto/?sku=${sku}`,
+    {
+      headers: {
+        chave_api: "aaba145ba78dc7524820",
+        chave_aplicacao: "92fae45b-dd41-46c2-ac0d-840642d6982a",
+      },
+    }
+  );
+
+  if (
+    !productIdResponse ||
+    !productIdResponse.data ||
+    !productIdResponse.data.objects ||
+    !productIdResponse.data.objects[0]?.id
+  )
+    return;
+
+  const productResponse = await axios.get(
+    `https://api.awsli.com.br/v1/produto/${productIdResponse.data.objects[0]?.id}`,
+    {
+      headers: {
+        chave_api: "aaba145ba78dc7524820",
+        chave_aplicacao: "92fae45b-dd41-46c2-ac0d-840642d6982a",
+      },
+    }
+  );
+
+  const product = await productResponse.data;
+  const productHTML = LiProductBox(product);
 
   res.json({ productHTML });
 });

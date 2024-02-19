@@ -119,7 +119,7 @@ export const ProductBox = (product: Product) => {
 
                     <span class="js-installment-price product-installment-value">
                       R$
-                      ${(Number(product.variants[0].price) / 6)
+                      ${(Number(product.variants[0].price) / 12)
                         .toFixed(2)
                         .replace(".", ",")}
                     </span>

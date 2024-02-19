@@ -4,7 +4,9 @@ export const LiProductBox = (product: LiProduct) => {
   return `    
     <li class="span4">
       <div
-        class="listagem-item prod-id-${product.id}  prod-cat-19770635 prod-cat-19824019 prod-cat-19770635 prod-cat-19824670"
+        class="listagem-item prod-id-${
+          product.id
+        }  prod-cat-19770635 prod-cat-19824019 prod-cat-19770635 prod-cat-19824670"
         data-id="${product.id}"
         style="
     border-radius: 15px;
@@ -58,9 +60,15 @@ export const LiProductBox = (product: LiProduct) => {
               <div>
                 <strong
                   class="preco-promocional cor-principal titulo"
-                  data-sell-price="89.90"
+                  data-sell-price="${product.preco.toFixed(2)}"
                 >
-                  ${product.preco}
+                ${
+                  "R$ " +
+                  product.preco.toLocaleString("pt-BR", {
+                    minimumFractionDigits: 2,
+                  })
+                }
+             
                 </strong>
               </div>
 
@@ -78,7 +86,12 @@ export const LiProductBox = (product: LiProduct) => {
                     class="cor-secundaria"
                     style="color: rgb(217, 126, 126) !important"
                   >
-                    R$ 29,96
+                         ${
+                           "R$ " +
+                           (product.preco / 3).toLocaleString("pt-BR", {
+                             minimumFractionDigits: 2,
+                           })
+                         }
                   </strong>
                   <span>sem juros</span>
                 </span>
@@ -90,7 +103,12 @@ export const LiProductBox = (product: LiProduct) => {
                   class="cor-secundaria"
                   style="color: rgb(217, 126, 126) !important"
                 >
-                  R$ 85,40
+                       ${
+                         "R$ " +
+                         (product.preco * 0.95).toLocaleString("pt-BR", {
+                           minimumFractionDigits: 2,
+                         })
+                       }
                 </strong>
                 via Boleto Bancário
               </span>

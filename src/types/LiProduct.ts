@@ -1,5 +1,5 @@
 export interface LiProduct {
-  preco: string;
+  preco: number;
   altura: number | null;
   apelido: string;
   ativo: boolean;

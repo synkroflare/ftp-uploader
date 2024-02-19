@@ -196,13 +196,7 @@ app.get("/product-li", async (req, res) => {
 
   const preco = precos.sort((a, b) => a - b)[0];
 
-  const precoString =
-    "R$" +
-    preco.toLocaleString("pt-BR", {
-      minimumFractionDigits: 2,
-    });
-
-  const productHTML = LiProductBox({ ...product, preco: precoString });
+  const productHTML = LiProductBox({ ...product, preco });
 
   res.json({ productHTML });
 });

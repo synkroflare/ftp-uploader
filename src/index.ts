@@ -21,6 +21,7 @@ const allowedOrigins = [
   "http://localhost:3000",
   "https://estiload.lojavirtualnuvem.com.br",
   "https://estiload.lojavirtualnuvem.com.br",
+  "https://www.estiload.com.br/",
   "*",
 ]; // Substitua pelos seus valores
 

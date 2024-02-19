@@ -60,7 +60,7 @@ export const LiProductBox = (product: LiProduct) => {
                   class="preco-promocional cor-principal titulo"
                   data-sell-price="89.90"
                 >
-                  R$ 89,90
+                  ${product.preco}
                 </strong>
               </div>
 

@@ -8,6 +8,7 @@ import multer from "multer";
 import { bufferToStream } from "./helpers/BufferToStream";
 import { LiProductBox } from "./helpers/LiProductBox";
 import { ProductBox } from "./helpers/ProductBox";
+import { LiProduct } from "./types/LiProduct";
 const port = 8082;
 
 process.on("uncaughtException", (err) => {
@@ -157,12 +158,51 @@ app.get("/product-li", async (req, res) => {
   )
     return;
 
+  const productId = productIdResponse.data.objects[0]?.id;
+
   const productResponse = await axios.get(
-    `https://api.awsli.com.br/v1/produto/${productIdResponse.data.objects[0]?.id}?chave_api=aaba145ba78dc7524820&chave_aplicacao=92fae45b-dd41-46c2-ac0d-840642d6982a`
+    `https://api.awsli.com.br/v1/produto/${productId}?chave_api=aaba145ba78dc7524820&chave_aplicacao=92fae45b-dd41-46c2-ac0d-840642d6982a`
   );
 
-  const product = await productResponse.data;
-  const productHTML = LiProductBox(product);
+  const product = (await productResponse.data) as LiProduct;
+
+  const precos: number[] = [];
+
+  if (product.filhos.length > 0) {
+    for (const filho of product.filhos) {
+      const id = filho.split("/")[4];
+      const precoResponse = await axios.get(
+        `https://api.awsli.com.br/v1/produto_preco/${id}?chave_api=aaba145ba78dc7524820&chave_aplicacao=92fae45b-dd41-46c2-ac0d-840642d6982a`
+      );
+      if (precoResponse.data) {
+        precos.push(
+          precoResponse.data.promocional
+            ? Number(precoResponse.data.promocional)
+            : Number(precoResponse.data.cheio)
+        );
+      }
+    }
+  } else {
+    const precoResponse = await axios.get(
+      `https://api.awsli.com.br/v1/produto_preco/${productId}?chave_api=aaba145ba78dc7524820&chave_aplicacao=92fae45b-dd41-46c2-ac0d-840642d6982a`
+    );
+    if (precoResponse.data) {
+      precos.push(
+        Number(precoResponse.data.promocional) ??
+          Number(precoResponse.data.cheio)
+      );
+    }
+  }
+
+  const preco = precos.sort((a, b) => a - b)[0];
+
+  const precoString =
+    "R$" +
+    preco.toLocaleString("pt-BR", {
+      minimumFractionDigits: 2,
+    });
+
+  const productHTML = LiProductBox({ ...product, preco: precoString });
 
   res.json({ productHTML });
 });

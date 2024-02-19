@@ -123,6 +123,9 @@ export const LiProductBox = (product: LiProduct) => {
         <div class="bandeiras-produto"></div>
       </div>
     </li>
+
+    <li class="span-4" style="opacity: 0"> </li>
+    <li class="span-4" style="opacity: 0"> </li>
  
     `;
 };

@@ -104,7 +104,6 @@ app.post("/finalize-order", async (req, res) => {
       imageCode;
 
     const splitImageCode = imageCode.split(".");
-    const imageExtension = splitImageCode[splitImageCode.length - 1];
     const newImageName = clientEmail.split("@")[0];
 
     const newPath =
@@ -168,7 +167,7 @@ app.get("/product-li", async (req, res) => {
 
   const precos: number[] = [];
 
-  if (product.filhos.length > 0) {
+  if (product.filhos?.length > 0) {
     for (const filho of product.filhos) {
       const id = filho.split("/")[4];
       const precoResponse = await axios.get(

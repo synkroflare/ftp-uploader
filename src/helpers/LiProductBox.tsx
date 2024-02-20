@@ -6,7 +6,7 @@ export const LiProductBox = (product: LiProduct) => {
      href="${product.url}"
     style="
     height: 600px;
-    background: url("${product.imagens[0]?.grande}");
+    background: url('${product.imagens[0]?.grande}');
     background-size: cover;
     border-radius: 10px;
     background-position: center center;"

@@ -9,8 +9,8 @@ export const LiProductBox = (product: LiProduct) => {
     background: url('${product.imagens[0]?.grande}');
     background-size: cover;
     border-radius: 10px;
-    background-position: center center;"
-    display: block;
+    background-position: center center;
+    display: block;"
   >
     <li class="span4">
       <div

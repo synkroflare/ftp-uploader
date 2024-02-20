@@ -2,6 +2,15 @@ import { LiProduct } from "../types/LiProduct";
 
 export const LiProductBox = (product: LiProduct) => {
   return `    
+  <a
+     href="${product.url}"
+    style="
+    height: 600px;
+    background: url("${product.imagens[0]?.grande}");
+    background-size: cover;
+    border-radius: 10px;
+    background-position: center center;"
+  >
     <li class="span4">
       <div
         class="listagem-item prod-id-${
@@ -13,6 +22,7 @@ export const LiProductBox = (product: LiProduct) => {
     box-shadow: 0px 0px 20px 5px #d97e7ead;
     padding: 10px 5px !important;
     margin-top: 20px;
+    background: white;
 "
       >
         <a
@@ -142,8 +152,23 @@ export const LiProductBox = (product: LiProduct) => {
       </div>
     </li>
 
-    <li class="span-4" style="opacity: 0"> </li>
-    <li class="span-4" style="opacity: 0"> </li>
+    <li class="span-4" style="width: 60%;height: 600px;display: flex;justify-content: center;align-items: center;">
+      <div style="
+          margin-top: 15px;
+          font-weight: 700;
+          background: #ffffffd6;
+          border-radius: 10px;
+          padding: 15px 45px;
+          font-size: medium;
+      ">
+          ${product.nome}
+      </div>        
+    </li>
+
+    <li class="span-4" style="width: 92%;text-align: center;margin: 25px;color: #d97e7e;font-weight: 800;padding-bottom: 5px;font-size: medium;">
+      Você também pode gostar de        
+    </li>
+  </a>
  
     `;
 };

@@ -16,7 +16,14 @@ export const LiProductBox = (product: LiProduct) => {
     display: block;
     cursor: pointer;"
   >
-    <li class="span4">
+    <div
+    style="
+    height: 600px;
+    background: rgba(0,0,0,0.2);
+    backdrop-filter: blur(2px);
+    border-radius: 10px;
+    ">
+        <li class="span4">
       <div
         class="listagem-item prod-id-${
           product.id
@@ -176,6 +183,7 @@ export const LiProductBox = (product: LiProduct) => {
     <li class="span-4" style="width: 92%;text-align: center;margin: 25px;color: #d97e7e;font-weight: 800;padding-bottom: 5px;font-size: medium;">
       Você também pode gostar de        
     </li>
+    </div>
   </div>
  
     `;

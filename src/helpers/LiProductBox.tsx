@@ -81,6 +81,7 @@ export const LiProductBox = (product: LiProduct) => {
                   "R$ " +
                   product.preco.toLocaleString("pt-BR", {
                     minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
                   })
                 }
              
@@ -105,6 +106,7 @@ export const LiProductBox = (product: LiProduct) => {
                            "R$ " +
                            (product.preco / 3).toLocaleString("pt-BR", {
                              minimumFractionDigits: 2,
+                             maximumFractionDigits: 2,
                            })
                          }
                   </strong>
@@ -122,6 +124,7 @@ export const LiProductBox = (product: LiProduct) => {
                          "R$ " +
                          (product.preco * 0.95).toLocaleString("pt-BR", {
                            minimumFractionDigits: 2,
+                           maximumFractionDigits: 2,
                          })
                        }
                 </strong>

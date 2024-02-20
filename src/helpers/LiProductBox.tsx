@@ -1,6 +1,9 @@
 import { LiProduct } from "../types/LiProduct";
 
 export const LiProductBox = (product: LiProduct) => {
+  const name = product.nome.includes("]")
+    ? product.nome.split("]")[1].trim()
+    : product.nome;
   return `    
   <div
     onclick="window.location.href='${product.url}'"
@@ -35,13 +38,13 @@ export const LiProductBox = (product: LiProduct) => {
         <a
           href="${product.url}"
           class="produto-sobrepor"
-          title="${product.nome}"
+          title="${name}"
         ></a>
         <div class="imagem-produto has-zoom">
           <img
             loading="lazy"
             src="${product.imagens[0]?.media}"
-            alt="${product.nome}"
+            alt="${name}"
             class="imagem-principal"
             data-imagem-caminho="${product.imagens[1]?.media}"
           />
@@ -59,7 +62,7 @@ export const LiProductBox = (product: LiProduct) => {
             href="${product.url}"
             class="nome-produto cor-secundaria"
           >
-            ${product.nome}
+            ${name}
           </a>
           <div class="produto-sku hide">1291_9mm</div>
           <div
@@ -163,7 +166,7 @@ export const LiProductBox = (product: LiProduct) => {
           padding: 15px 45px;
           font-size: medium;
       ">
-          ${product.nome}
+          ${name}
       </div>        
     </li>
 

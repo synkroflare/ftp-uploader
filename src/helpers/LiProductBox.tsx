@@ -2,15 +2,16 @@ import { LiProduct } from "../types/LiProduct";
 
 export const LiProductBox = (product: LiProduct) => {
   return `    
-  <a
-     href="${product.url}"
+  <div
+    onclick="window.location.href='${product.url}'"
     style="
     height: 600px;
     background: url('${product.imagens[0]?.grande}');
     background-size: cover;
     border-radius: 10px;
     background-position: center center;
-    display: block;"
+    display: block;
+    cursor: pointer;"
   >
     <li class="span4">
       <div
@@ -169,7 +170,7 @@ export const LiProductBox = (product: LiProduct) => {
     <li class="span-4" style="width: 92%;text-align: center;margin: 25px;color: #d97e7e;font-weight: 800;padding-bottom: 5px;font-size: medium;">
       Você também pode gostar de        
     </li>
-  </a>
+  </div>
  
     `;
 };

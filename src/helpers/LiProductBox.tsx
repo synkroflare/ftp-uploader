@@ -10,6 +10,7 @@ export const LiProductBox = (product: LiProduct) => {
     background-size: cover;
     border-radius: 10px;
     background-position: center center;"
+    display: block;
   >
     <li class="span4">
       <div
